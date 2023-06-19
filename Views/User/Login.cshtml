@@ -1,14 +1,15 @@
 ﻿@{
-    ViewData["Title"] = "ss Page";
+    ViewData["Title"] = "Login Page";
 }
-@model Movie.Models.User.UserRegisterRequest
+@model Movie.Models.User.UserLoginRequest
 <div class="row">
     <div class="col-md-6 m-4">
         <h1>REGISTER FORM</h1>
-        <form asp-controller="User" asp-action="Register" method="post">
+        <h1>@TempData["success"]</h1>
+        <form asp-controller="User" asp-action="Login" method="post">
             <div>
                 <label asp-for="Email">Email</label>
-                <input class="form-control" type="email" asp-for="Email"/>
+                <input class="form-control" type="email" asp-for="Email" />
                 <span class="text-danger" asp-validation-for="Email"></span>
             </div>
             <div>
@@ -17,11 +18,9 @@
                 <span class="text-danger" asp-validation-for="Password"></span>
             </div>
             <div>
-                <input type="submit" class="btn btn-primary mt-2" value="Login"/>
+                <input type="submit" class="btn btn-primary mt-2" value="Login" />
             </div>
         </form>
     </div>
     <div class="col-md-3"></div>
-    <a class="btn btn-secondary" asp-controller="User" asp-action="Register">Register</a>
-    <a class="btn btn-secondary" asp-controller="User" asp-action="Login">Login</a>
 </div>

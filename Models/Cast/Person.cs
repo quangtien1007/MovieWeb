@@ -1,15 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Movie.Models
+namespace Movie.Models.Cast
 {
-    [Table("Genre")]
-    public class Genre
+    [Table("Person")]
+    public class Person
     {
         [Key]
         public int Id { get; set; }
         [Required]
-        [MaxLength(50)]
+        [MaxLength(100)]
         public string? Name { get; set; }
     }
 }

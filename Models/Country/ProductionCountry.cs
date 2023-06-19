@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Movie.Models.Movie;
 
-namespace Movie.Models
+namespace Movie.Models.Country
 {
     [Table("ProductionCountry")]
     public class ProductionCountry

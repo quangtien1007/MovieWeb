@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Movie.Models
+namespace Movie.Models.Keyword
 {
-    [Table("Person")]
-    public class Person
+    [Table("Keyword")]
+    public class Keyword
     {
         [Key]
         public int Id { get; set; }

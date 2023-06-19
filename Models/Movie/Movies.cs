@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Movie.Models
+namespace Movie.Models.Movie
 {
     [Table("Movie")]
     public class Movies

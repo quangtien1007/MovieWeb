@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Movie.Models.Movie;
 
-namespace Movie.Models
+namespace Movie.Models.Cast
 {
     [Table("MovieCast")]
     public class MovieCast
