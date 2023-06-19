@@ -11,9 +11,12 @@ namespace Movie.Models.Movie
         [Required]
         [MaxLength(100)]
         public string? Title { get; set; }
+        [MaxLength(255)]
+        [NotMapped]
+        public IFormFile? Image { get; set; }
         public string? Overview { get; set; }
         public DateTime ReleaseDate { get; set; }
         public int Viewed { get; set; }
-        public int Movie_Status { get; set; }
+        public string? Movie_Status { get; set; }
     }
 }

@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Create movie";
+}
+@model Movie.Models.Movie.Movies
+<div class="container-fluid">
+    <div class="col-lg d-flex align-items-strech">
+        <div class="card w-100">
+            <div class="card-body">
+                <div class="align-items-center justify-content-between">
+                    <form method="post">
+                        <div class="border-3 mt-4">
+                            <div class="row pb-2">
+                                <h2 class="text-primary">CREATE Movie</h2>
+                                <hr />
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Title">Movie title</label>
+                                <input asp-for="Title" class="form-control" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Title">Release Date</label>
+                                <input asp-for="Title" class="form-control" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <input multiple asp-for="Image" class="custom-file-input" id="customFile" />
+                            </div>
+                            <!--<div class="mb-3">
+                                <label asp-for="Image">Image</label>
+                                <input type="file" asp-for="Image" class="form-control" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Image">Image</label>
+                                <input type="file" asp-for="Image" class="form-control" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>-->
+
+                            <div class="mb-3">
+                                <input value="Add" type="submit" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@* script của upload *@
+<script>
+    fileImage.onchange = evt => {
+        const [file] = fileImage.files
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            $("#preview").removeClass("hidden");
+        }
+    }
+</script>
+
+@* script của multiple upload *@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    $(document).on('ready', () => {
+        $("#files").on('change', function () {
+
+            $(".filearray").empty();//you can remove this code if you want previous user input
+            for (let i = 0; i < this.files.length; ++i) {
+                let filereader = new FileReader();
+                let $img = jQuery.parseHTML("<img width='150' src=''>");
+                filereader.onload = function () {
+                    $img[0].src = this.result;
+                };
+                filereader.readAsDataURL(this.files[i]);
+                $(".filearray").append($img);
+            }
+        });
+    });
+</script>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+

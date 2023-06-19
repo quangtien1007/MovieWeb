@@ -13,12 +13,16 @@ namespace Movie.Models.Cast
         [ForeignKey("MovieId")]
         public Movies? Movies { get; set; }
 
-        [ForeignKey("GenderId")]
-        public Gender? Gender { get; set; }
-
         [ForeignKey("PersonId")]
         public Person? Person { get; set; }
 
-        public string? CastName { get; set; }  
+        [MaxLength(10)]
+        public string? Gender { get; set; }
+
+        [StringLength(100)]
+        public string? CastName { get; set; }
+
+        [StringLength(255)]
+        public string? CastImage { get; set; }
     }
 }
