@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Movie.Data;
 using Movie.Models.User;
+using System.Security.Claims;
 using System.Security.Cryptography;
 
 namespace Movie.Controllers
@@ -15,8 +18,6 @@ namespace Movie.Controllers
         {
             _db = db;
         }
-
-        
         public IActionResult Index()
         {
             return View();
@@ -42,7 +43,7 @@ namespace Movie.Controllers
                 var User = new User
                 {
                     Email = request.Email,
-                    Role = 1,
+                    Role = "Admin",
                     PasswordHash = passwordHash,
                     PasswordSalt = passwordSalt,
                     VerifyAt = DateTime.Now,
@@ -58,29 +59,57 @@ namespace Movie.Controllers
             }
         }
         [HttpGet("/Login")]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl = "/Login")
         {
-            return View();
+            UserLoginRequest objLoginModel = new UserLoginRequest();
+            objLoginModel.ReturnUrl = returnUrl;
+            return View(objLoginModel);
         }
 
         [HttpPost("Login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(UserLoginRequest request)
         {
-            var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
-            if(user == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                var user = await _db.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
+                bool pass = VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt);
+                if (user != null && pass)
+                {
+                    //A claim is a statement about a subject by an issuer and    
+                    //represent attributes of the subject that are useful in the context of authentication and authorization operations.
+                    var claims = new List<Claim>() {
+                        new Claim(ClaimTypes.Name, user.Email),
+                        new Claim(ClaimTypes.Role, user.Role),
+                    };
+                    //Initialize a new instance of the ClaimsIdentity with the claims and authentication scheme    
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    //Initialize a new instance of the ClaimsPrincipal with ClaimsIdentity    
+                    var principal = new ClaimsPrincipal(identity);
+                    //SignInAsync is a Extension method for Sign in a principal for the specified scheme.    
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties()
+                    {
+                        IsPersistent = request.RememberLogin
+                    });
+                    TempData["success"] = "Login successfully";
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["error"] = "Email or Password is invalid";
+                    ViewBag.Message = "Invalid Credential";
+                    return View(user);
+                }
             }
-            if (user.VerifyAt == null)
-            {
-                return NotFound();
-            }
-            if (!VerifyPasswordHash(request.Password, user.PasswordHash, user.PasswordSalt))
-            {
-                return NotFound();
-            }
-            TempData["success"] = "login successfully";
-;            return View();
+            return View(request);
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            //SignOutAsync is Extension method for SignOut    
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            //Redirect to home page    
+            return RedirectToAction("Index","Home");
         }
 
         private void CreatePasswordHash(string password, out Byte[] passwordHash, out Byte[] passwordSalt) 

@@ -57,7 +57,7 @@
                                 <span>
                                     <i class="ti ti-alert-circle"></i>
                                 </span>
-                                <span class="hide-menu">Alerts</span>
+                                <span class="hide-menu">Genre</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -65,7 +65,7 @@
                                 <span>
                                     <i class="ti ti-cards"></i>
                                 </span>
-                                <span class="hide-menu">Card</span>
+                                <span class="hide-menu">Company</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -73,7 +73,7 @@
                                 <span>
                                     <i class="ti ti-file-description"></i>
                                 </span>
-                                <span class="hide-menu">Forms</span>
+                                <span class="hide-menu">Analytics</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -84,12 +84,13 @@
                                 <span class="hide-menu">Typography</span>
                             </a>
                         </li>
+                        @if(!User.Identity.IsAuthenticated){
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                             <span class="hide-menu">AUTH</span>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="./authentication-login.html" aria-expanded="false">
+                            <a class="sidebar-link" asp-controller="User" asp-action="Login" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-login"></i>
                                 </span>
@@ -97,13 +98,14 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="./authentication-register.html" aria-expanded="false">
+                            <a class="sidebar-link" asp-controller="User" asp-action="Register" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-user-plus"></i>
                                 </span>
                                 <span class="hide-menu">Register</span>
                             </a>
                         </li>
+                        }
                         <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                             <span class="hide-menu">EXTRA</span>

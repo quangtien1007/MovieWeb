@@ -4,7 +4,7 @@
 @model Movie.Models.User.UserLoginRequest
 <div class="row">
     <div class="col-md-6 m-4">
-        <h1>REGISTER FORM</h1>
+        <h1>LOGIN FORM</h1>
         <h1>@TempData["success"]</h1>
         <form asp-controller="User" asp-action="Login" method="post">
             <div>
@@ -22,5 +22,6 @@
             </div>
         </form>
     </div>
+    <h1>@if (User.Identity.IsAuthenticated) { <h1> User.Claims.First().Value; </h1>}</h1>
     <div class="col-md-3"></div>
 </div>

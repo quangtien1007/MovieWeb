@@ -1,0 +1,8 @@
+﻿<div class="col-md-6">
+    @if(TempData["success"] != null){
+        <h1>@TempData["success"]</h1>
+    }
+    else{
+        <h1>@TempData["error"]</h1>
+    }
+</div>

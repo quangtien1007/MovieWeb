@@ -6,15 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+//Add service to use DBContext
 builder.Services.AddDbContext<DBContextApplication>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(option =>
-{
-    option.LoginPath = "/Access/Login";
-    option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
-});
+//Add Cookie to use for Authentication User
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie("Cookies");
 
 var app = builder.Build();
 
