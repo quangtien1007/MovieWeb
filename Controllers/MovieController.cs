@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Movie.Data;
+using Movie.Models.Cast;
 using Movie.Models.Movie;
 
 
@@ -20,9 +23,17 @@ namespace Movie.Controllers
             return View(movie.ToList());
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            IQueryable<string> castQuery = from m in _db.Cast
+                                            orderby m.Name
+                                            select m.Name;
+
+            var data = new MovieViewModel
+            {
+                Datas = new SelectList(await castQuery.Distinct().ToListAsync())
+            };
+            return View(data);
         }
 
         [HttpPost]
@@ -40,6 +51,15 @@ namespace Movie.Controllers
                     Movie_Status = request.Movie_Status,
                 };
 
+                var cast = from m in _db.Cast.Where(p=> p.Id == request.CastId) select m;
+                
+                var movieCast = new MovieCast
+                {
+                    MovieId = request.Id,
+                    CastId = request.CastId,
+                };
+
+                _db.MovieCasts.Add(movieCast);
                 _db.Movies.Add(movie);
                 await _db.SaveChangesAsync();
 

@@ -19,6 +19,11 @@
                                 <span asp-validation-for="Title" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
+                                <select class="form-select" asp-for="CastId" asp-items="@Model.Datas" >
+                                    <option value=1>All</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
                                 <label asp-for="ReleaseDate">Release Date</label>
                                 <input type="datetime-local" asp-for="ReleaseDate" class="form-control" />
                                 <span asp-validation-for="ReleaseDate" class="text-danger"></span>

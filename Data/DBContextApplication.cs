@@ -16,11 +16,10 @@ namespace Movie.Data
         #region DbSet
         public DbSet<User> Users { get; set; }
         public DbSet<Movies> Movies { get; set; }
-        public DbSet<Gender> Genders { get; set; }
         public DbSet<Country> Countrys { get; set; }
         public DbSet<Keyword> Keywords { get; set; }
         public DbSet<Genre> Genres { get; set; }
-        public DbSet<Person> Persons { get; set; }
+        public DbSet<Cast> Cast { get; set; }
         public DbSet<Company> Companys { get; set; }
         public DbSet<MovieCast> MovieCasts { get; set; }
         public DbSet<MovieCompany> MovieCompanys { get; set; }

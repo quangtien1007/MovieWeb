@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Movie.Data;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Movie.Models.Movie
 {
@@ -11,5 +13,8 @@ namespace Movie.Models.Movie
         public DateTime ReleaseDate { get; set; }
         public int Viewed { get; set; }
         public string? Movie_Status { get; set; }
+        public int CastId { get; set; }
+        public SelectList? Datas { get; set; }
+       
     }
 }

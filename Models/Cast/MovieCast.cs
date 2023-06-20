@@ -10,19 +10,16 @@ namespace Movie.Models.Cast
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("MovieId")]
+        public int MovieId { get; set; }
         public Movies? Movies { get; set; }
 
-        [ForeignKey("PersonId")]
-        public Person? Person { get; set; }
+        public int CastId { get; set; }
+        public Cast? Cast { get; set; }
 
         [MaxLength(10)]
         public string? Gender { get; set; }
 
         [StringLength(100)]
-        public string? CastName { get; set; }
-
-        [StringLength(255)]
-        public string? CastImage { get; set; }
+        public string? CharacterName { get; set; }
     }
 }

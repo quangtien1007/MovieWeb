@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Movie.Data;
 
@@ -11,9 +12,11 @@ using Movie.Data;
 namespace Movie.Migrations
 {
     [DbContext(typeof(DBContextApplication))]
-    partial class DBContextApplicationModelSnapshot : ModelSnapshot
+    [Migration("20230620162005_EditMovieCastModels")]
+    partial class EditMovieCastModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,17 +65,14 @@ namespace Movie.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("nvarchar(10)");
 
-                    b.Property<int>("MovieId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MoviesId")
+                    b.Property<int?>("MovieId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CastId");
 
-                    b.HasIndex("MoviesId");
+                    b.HasIndex("MovieId");
 
                     b.ToTable("MovieCast");
                 });
@@ -325,7 +325,7 @@ namespace Movie.Migrations
 
                     b.HasOne("Movie.Models.Movie.Movies", "Movies")
                         .WithMany()
-                        .HasForeignKey("MoviesId");
+                        .HasForeignKey("MovieId");
 
                     b.Navigation("Cast");
 

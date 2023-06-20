@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Create cast";
+}
+@model Movie.Models.Cast.Cast
+<div class="container-fluid">
+    <div class="col-lg d-flex align-items-strech">
+        <div class="card w-100">
+            <div class="card-body">
+                <div class="align-items-center justify-content-between">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="border-3 mt-4">
+                            <div class="row pb-2">
+                                <h2 class="text-primary">CREATE CAST</h2>
+                                <hr />
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Name">Cast name</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="ProfileImage">Profile Image</label>
+                                <input asp-for="ProfileImage" class="form-control" type="file" multiple />
+                                <img id="img-preview" hidden class="hidden" width="100" />
+                            </div>
+                            <div class="mb-3">
+                                <input value="Add" type="submit" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const input = document.getElementById('file-input');
+    const image = document.getElementById('img-preview');
+
+    input.addEventListener('change', (e) => {
+        if (e.target.files.length) {
+            const src = URL.createObjectURL(e.target.files[0]);
+            image.src = src;
+            image.hidden = false;
+        }
+    });
+</script>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+
