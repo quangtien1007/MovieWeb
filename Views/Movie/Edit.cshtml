@@ -1,23 +1,57 @@
 ﻿@{
-    ViewData["Title"] = "Edit genre";
+    ViewData["Title"] = "Edit movie";
 }
-@model Movie.Models.Genre.Genre
+@model Movie.Models.Movie.Movies
 <div class="container-fluid">
     <div class="col-lg d-flex align-items-strech">
         <div class="card w-100">
             <div class="card-body">
                 <div class="align-items-center justify-content-between">
-                    <form method="post">
+                    <form asp-controller="Movie" asp-action="Edit" method="post" enctype="multipart/form-data">
                         <div class="border-3 mt-4">
                             <div class="row pb-2">
-                                <h2 class="text-primary">EDIT GENRE</h2>
+                                <h2 class="text-primary">Edit Movie</h2>
                                 <hr />
                             </div>
                             <div class="mb-3">
-                                <label asp-for="Name">Genre movie</label>
-                                <input asp-for="Name" class="form-control" />
-                                <span asp-validation-for="Name" class="text-danger"></span>
+                                <input asp-for="Id" type="hidden" />
+                                <label asp-for="Title">Movie title</label>
+                                <input asp-for="Title" class="form-control" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
                             </div>
+                            <div class="mb-3">
+                                <label asp-for="ReleaseDate">Release Date</label>
+                                <input type="datetime-local" asp-for="ReleaseDate" class="form-control" />
+                                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Image">Image</label>
+                                <input multiple id="file-input" type="file" asp-for="Image" class="form-control" />
+                                <p class="text-danger">Leave blank if you want to keep old photos</p>
+                                <img id="img-preview" hidden class="hidden" width="100" />
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Movie_Status">Status</label>
+                                <select asp-for="Movie_Status" class="form-select">
+                                    <option value="Showing">Showing</option>
+                                    <option value="Stop">Stop</option>
+                                 </select>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Overview">Overview</label>
+                                <textarea asp-for="Overview" id="mytextarea"></textarea>
+                            </div>
+                            <!--<div class="mb-3">
+                                <label asp-for="Image">Image</label>
+                                <input type="file" asp-for="Image" class="form-control" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Image">Image</label>
+                                <input type="file" asp-for="Image" class="form-control" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>-->
+
                             <div class="mb-3">
                                 <input value="Update" type="submit" class="btn btn-primary" />
                             </div>
@@ -28,6 +62,18 @@
         </div>
     </div>
 </div>
+<script>
+    const input = document.getElementById('file-input');
+    const image = document.getElementById('img-preview');
+
+    input.addEventListener('change', (e) => {
+        if (e.target.files.length) {
+            const src = URL.createObjectURL(e.target.files[0]);
+            image.src = src;
+            image.hidden = false;
+        }
+    });
+</script>
 @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial" />

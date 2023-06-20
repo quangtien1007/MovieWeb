@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "M2P79obr1NSYdPY3YxIni8+aiokQQJubNKjmUx3RhqHb+tgOc4tPlECZuueclLO6HVNytJrqIcWHVms+DVUkWA==",
+  "dgSpecHash": "2gXfLuS63nfvHiHmhgwwSKcol6ElGqNxUFXSQcbDu/akYsqYHfSZI3ZDBEg5hnYQIhziEjWmSFi6yig4UbrPIA==",
   "success": true,
   "projectFilePath": "D:\\ASP.NET\\Movie\\Movie.csproj",
   "expectedPackageFiles": [
@@ -230,7 +230,8 @@
     "C:\\Users\\TIEN PC\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\TIEN PC\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
     "C:\\Users\\TIEN PC\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Users\\TIEN PC\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Users\\TIEN PC\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\TIEN PC\\.nuget\\packages\\tinymce\\6.5.1\\tinymce.6.5.1.nupkg.sha512"
   ],
   "logs": []
 }

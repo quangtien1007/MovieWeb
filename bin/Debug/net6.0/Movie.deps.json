@@ -12,7 +12,8 @@
           "Microsoft.EntityFrameworkCore": "7.0.7",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.7",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.7",
-          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.14"
+          "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.14",
+          "TinyMCE": "6.5.1"
         },
         "runtime": {
           "Movie.dll": {}
@@ -2663,7 +2664,8 @@
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0"
         }
-      }
+      },
+      "TinyMCE/6.5.1": {}
     }
   },
   "libraries": {
@@ -4260,6 +4262,13 @@
       "sha512": "sha512-5zJ0XDxAIg8iy+t4aMnQAu0MqVbqyvfoUVl1yDV61xdo3Vth45oA2FoY4pPkxYAH5f8ixpmTqXeEIya95x0aCQ==",
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
+    },
+    "TinyMCE/6.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Lnutp6drHPuD0SSRnzVU3ZqiHh7NCjiHhBg39HIqoWg67ly0t++Ia4wuiLDWU7lmL5U/PELejMg4ZiJKNntgtw==",
+      "path": "tinymce/6.5.1",
+      "hashPath": "tinymce.6.5.1.nupkg.sha512"
     }
   }
 }

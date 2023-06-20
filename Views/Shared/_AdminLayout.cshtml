@@ -208,6 +208,12 @@
     <script src="~/libs/apexcharts/dist/apexcharts.min.js"></script>
     <script src="~/libs/simplebar/dist/simplebar.js"></script>
     <script src="~/js/dashboard.js"></script>
+    <script src="~/lib/tinymce/tinymce.min.js" ></script>
+    <script>
+        tinymce.init({
+            selector: '#mytextarea'
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
