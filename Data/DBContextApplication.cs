@@ -5,6 +5,7 @@ using Movie.Models.Country;
 using Movie.Models.Genre;
 using Movie.Models.Keyword;
 using Movie.Models.Movie;
+using Movie.Models.Post;
 using Movie.Models.User;
 
 namespace Movie.Data
@@ -14,7 +15,9 @@ namespace Movie.Data
         public DBContextApplication(DbContextOptions<DBContextApplication> options) : base(options) { }
 
         #region DbSet
+
         public DbSet<User> Users { get; set; }
+        public DbSet<Posts> Posts { get; set; }
         public DbSet<Movies> Movies { get; set; }
         public DbSet<Country> Countrys { get; set; }
         public DbSet<Keyword> Keywords { get; set; }

@@ -9,10 +9,9 @@ namespace Movie.Models.Genre
     {
         [Key]
         public int Id { get; set; }
-        [ForeignKey("MovieId")]
+        public int MovieId { get; set; }
         public Movies? Movies { get; set; }
-
-        [ForeignKey("GenreId")]
+        public int GenreId { get; set; }
         public Genre? Genre { get; set; }
     }
 }

@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Create genre";
+}
+@model Movie.Models.Genre.Genre
+<div class="container-fluid">
+    <div class="col-lg d-flex align-items-strech">
+        <div class="card w-100">
+            <div class="card-body">
+                <div class="align-items-center justify-content-between">
+                    <form method="post">
+                        <div class="border-3 mt-4">
+                            <div class="row pb-2">
+                                <h2 class="text-primary">CREATE GENRE</h2>
+                                <hr />
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Name">Category name</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <input value="Add" type="submit" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+

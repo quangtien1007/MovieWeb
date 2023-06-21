@@ -9,10 +9,9 @@ namespace Movie.Models.Company
     {
         [Key]
         public int Id { get; set; }
-
-        [ForeignKey("MovieId")]
+        public int MovieId { get; set; }
         public Movies? Movies { get; set; }
-        [ForeignKey("CompanyID")]
+        public int CompanyId { get; set; }
         public Company? Company { get; set; }
     }
 }

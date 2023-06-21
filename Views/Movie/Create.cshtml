@@ -13,14 +13,24 @@
                                 <h2 class="text-primary">Add Movie</h2>
                                 <hr />
                             </div>
-                            <div class="mb-3">
-                                <label asp-for="Title">Movie title</label>
+                            <div class="mb-3"> 
+                                <label asp-for="Title">Title</label>
                                 <input asp-for="Title" class="form-control" />
                                 <span asp-validation-for="Title" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <select class="form-select" asp-for="CastId" asp-items="@Model.Datas" >
-                                    <option value=1>All</option>
+                                <label asp-for="CastId">Cast</label>
+                                <select class="form-select" asp-for="CastId" asp-items="@Model.MovieCaster" >
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Title">Genre</label>
+                                <select class="form-select" asp-for="GenreId" asp-items="@Model.MovieGenre">
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Title">Company</label>
+                                <select class="form-select" asp-for="CompanyId" asp-items="@Model.MovieCompany">
                                 </select>
                             </div>
                             <div class="mb-3">

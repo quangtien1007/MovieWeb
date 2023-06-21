@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Movie.Data;
 using Movie.Models.Cast;
+using Movie.Models.Company;
+using Movie.Models.Genre;
 using Movie.Models.Movie;
 
 
@@ -23,17 +25,39 @@ namespace Movie.Controllers
             return View(movie.ToList());
         }
 
-        public async Task<IActionResult> Create()
+        public MovieViewModel GetDataSelectlist()
         {
-            IQueryable<string> castQuery = from m in _db.Cast
-                                            orderby m.Name
-                                            select m.Name;
+            var cast = from m in _db.Cast select m;
+            var genre = from m in _db.Genres select m;
+            var company = from m in _db.Companys select m;
 
-            var data = new MovieViewModel
+            var model = new MovieViewModel
             {
-                Datas = new SelectList(await castQuery.Distinct().ToListAsync())
+                MovieCaster = new List<SelectListItem>(),
+                MovieGenre = new List<SelectListItem>(),
+                MovieCompany = new List<SelectListItem>(),
             };
-            return View(data);
+
+            foreach (var item in cast.ToList())
+            {
+                model.MovieCaster.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
+            }
+            foreach (var item in genre.ToList())
+            {
+                model.MovieGenre.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
+            }
+            foreach (var item in company.ToList())
+            {
+                model.MovieCompany.Add(new SelectListItem { Text = item.Name, Value = item.Id.ToString() });
+            }
+
+            return model;
+        }
+
+        public IActionResult Create()
+        {
+            var model = GetDataSelectlist();
+            return View(model);
         }
 
         [HttpPost]
@@ -51,15 +75,39 @@ namespace Movie.Controllers
                     Movie_Status = request.Movie_Status,
                 };
 
-                var cast = from m in _db.Cast.Where(p=> p.Id == request.CastId) select m;
+                //Get next id of Movies
+                var listId = from i in _db.Movies select i.Id;
+                var nextMovieId = listId.ToList().Max();
                 
+                if(nextMovieId == null || nextMovieId == 0)
+                {
+                    nextMovieId = 1;
+                }
+                else
+                {
+                    nextMovieId++;
+                }
+
                 var movieCast = new MovieCast
                 {
-                    MovieId = request.Id,
+                    MovieId = nextMovieId,
                     CastId = request.CastId,
                 };
 
+                var movieGenre = new MovieGenre
+                {
+                    MovieId = nextMovieId,
+                    GenreId = request.GenreId,
+                }; 
+                
+                var movieCompany = new MovieCompany
+                {
+                    MovieId = nextMovieId,
+                    CompanyId = request.CompanyId,
+                };
+
                 _db.MovieCasts.Add(movieCast);
+                _db.MovieGenres.Add(movieGenre);
                 _db.Movies.Add(movie);
                 await _db.SaveChangesAsync();
 
