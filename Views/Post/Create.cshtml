@@ -1,23 +1,65 @@
 ﻿@{
-    ViewData["Title"] = "Create genre";
+    ViewData["Title"] = "Create post";
 }
-@model Movie.Models.Genre.Genre
+@model Movie.Models.Post.PostViewModel
 <div class="container-fluid">
     <div class="col-lg d-flex align-items-strech">
         <div class="card w-100">
             <div class="card-body">
                 <div class="align-items-center justify-content-between">
-                    <form method="post">
+                    <form asp-controller="Post" asp-action="Create" method="post" enctype="multipart/form-data">
                         <div class="border-3 mt-4">
                             <div class="row pb-2">
-                                <h2 class="text-primary">CREATE GENRE</h2>
+                                <h2 class="text-primary">Add Post</h2>
                                 <hr />
                             </div>
                             <div class="mb-3">
-                                <label asp-for="Name">Category name</label>
-                                <input asp-for="Name" class="form-control" />
-                                <span asp-validation-for="Name" class="text-danger"></span>
+                                <label asp-for="Title">Title</label>
+                                <input asp-for="Title" class="form-control" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
                             </div>
+                            <div class="mb-3">
+                                <label asp-for="Thumbnail">Thumbnail</label>
+                                <input multiple id="file-input" type="file" asp-for="Thumbnail" class="form-control" />
+                                <img id="img-preview" hidden class="hidden" width="100" />
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="CastId">Cast</label>
+                                <select class="form-select" asp-for="CastId" asp-items="@Model.PostCaster">
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="GenreId">Genre</label>
+                                <select class="form-select" asp-for="GenreId" asp-items="@Model.PostGenre">
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Created">Release Date</label>
+                                <input type="datetime-local" asp-for="Created" class="form-control" />
+                                <span asp-validation-for="Created" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Status">Status</label>
+                                <select asp-for="Status" class="form-select">
+                                    <option value="Showing">Showing</option>
+                                    <option value="Stop">Stop</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Content">Content</label>
+                                <textarea asp-for="Content" id="mytextarea"></textarea>
+                            </div>
+                            <!--<div class="mb-3">
+                                <label asp-for="Image">Image</label>
+                                <input type="file" asp-for="Image" class="form-control" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Image">Image</label>
+                                <input type="file" asp-for="Image" class="form-control" />
+                                <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>-->
+
                             <div class="mb-3">
                                 <input value="Add" type="submit" class="btn btn-primary" />
                             </div>
@@ -28,6 +70,19 @@
         </div>
     </div>
 </div>
+@* script của upload *@
+<script>
+    const input = document.getElementById('file-input');
+    const image = document.getElementById('img-preview');
+
+    input.addEventListener('change', (e) => {
+        if (e.target.files.length) {
+            const src = URL.createObjectURL(e.target.files[0]);
+            image.src = src;
+            image.hidden = false;
+        }
+    });
+</script>
 @section Scripts{
     @{
         <partial name="_ValidationScriptsPartial" />

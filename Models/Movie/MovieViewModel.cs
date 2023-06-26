@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using Movie.Data;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Movie.Models.Movie
 {

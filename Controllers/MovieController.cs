@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Movie.Data;
 using Movie.Models.Cast;
 using Movie.Models.Company;
@@ -79,7 +78,7 @@ namespace Movie.Controllers
                 var listId = from i in _db.Movies select i.Id;
                 var nextMovieId = listId.ToList().Max();
                 
-                if(nextMovieId == null || nextMovieId == 0)
+                if(nextMovieId == 0)
                 {
                     nextMovieId = 1;
                 }
@@ -138,7 +137,18 @@ namespace Movie.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             var movie = await _db.Movies.FindAsync(id);
-            return View(movie);
+            var newMovie = new MovieViewModel
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                ReleaseDate = movie.ReleaseDate,
+                Viewed = movie.Viewed,
+                Movie_Status = movie.Movie_Status,
+                MovieCaster = GetDataSelectlist().MovieCaster,
+                MovieGenre = GetDataSelectlist().MovieGenre,
+                MovieCompany = GetDataSelectlist().MovieCompany,
+            };
+            return View(newMovie);
         }
 
         [HttpPost]

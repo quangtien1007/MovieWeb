@@ -28,6 +28,8 @@ namespace Movie.Data
         public DbSet<MovieCompany> MovieCompanys { get; set; }
         public DbSet<MovieGenre> MovieGenres { get; set; }
         public DbSet<MovieKeyword> MovieKeywords { get; set; }
+        public DbSet<PostCast> PostCasts { get; set; }
+        public DbSet<PostGenre> PostGenres { get; set; }
         public DbSet<ProductionCountry> ProductionCountrys { get; set; }
 
         #endregion

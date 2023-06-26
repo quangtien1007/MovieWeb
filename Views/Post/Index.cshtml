@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Post";
 }
-@model List<Post>
+@model List<Movie.Models.Post.Posts>
 <div class="container-fluid">
     <partial name="_Notification" />
     <div class="col-lg d-flex align-items-strech">
@@ -39,12 +39,11 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th width="30%">
-                                    <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParam"]">ID</a>
-                                </th>
-                                <th width="50%">
-                                    <a asp-action="Index" asp-route-sortOrder="@ViewData["CurrentFilter"]">Name</a>
-                                </th>
+                                <th>Title</th>
+                                <th>Thumbnail</th>
+                                <th>Content</th>
+                                <th>Created</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>

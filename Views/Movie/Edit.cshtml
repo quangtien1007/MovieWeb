@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Edit movie";
 }
-@model Movie.Models.Movie.Movies
+@model Movie.Models.Movie.MovieViewModel
 <div class="container-fluid">
     <div class="col-lg d-flex align-items-strech">
         <div class="card w-100">
@@ -14,10 +14,24 @@
                                 <hr />
                             </div>
                             <div class="mb-3">
-                                <input asp-for="Id" type="hidden" />
                                 <label asp-for="Title">Movie title</label>
                                 <input asp-for="Title" class="form-control" />
                                 <span asp-validation-for="Title" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="CastId">Cast</label>
+                                <select class="form-select" asp-for="CastId" asp-items="@Model.MovieCaster">
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Title">Genre</label>
+                                <select class="form-select" asp-for="GenreId" asp-items="@Model.MovieGenre">
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Title">Company</label>
+                                <select class="form-select" asp-for="CompanyId" asp-items="@Model.MovieCompany">
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label asp-for="ReleaseDate">Release Date</label>

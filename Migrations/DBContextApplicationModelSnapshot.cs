@@ -33,6 +33,10 @@ namespace Movie.Migrations
                     b.Property<DateTime>("Birth")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Gender")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -61,10 +65,6 @@ namespace Movie.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Gender")
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
                     b.Property<int>("MovieId")
                         .HasColumnType("int");
 
@@ -78,6 +78,29 @@ namespace Movie.Migrations
                     b.HasIndex("MoviesId");
 
                     b.ToTable("MovieCast");
+                });
+
+            modelBuilder.Entity("Movie.Models.Cast.PostCast", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CastId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CastId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("PostCast");
                 });
 
             modelBuilder.Entity("Movie.Models.Company.Company", b =>
@@ -209,6 +232,29 @@ namespace Movie.Migrations
                     b.ToTable("MovieGenre");
                 });
 
+            modelBuilder.Entity("Movie.Models.Genre.PostGenre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("GenreId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GenreId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("PostGenres");
+                });
+
             modelBuilder.Entity("Movie.Models.Keyword.Keyword", b =>
                 {
                     b.Property<int>("Id")
@@ -283,7 +329,7 @@ namespace Movie.Migrations
                     b.ToTable("Movie");
                 });
 
-            modelBuilder.Entity("Movie.Models.Post.Post", b =>
+            modelBuilder.Entity("Movie.Models.Post.Posts", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -379,6 +425,25 @@ namespace Movie.Migrations
                     b.Navigation("Movies");
                 });
 
+            modelBuilder.Entity("Movie.Models.Cast.PostCast", b =>
+                {
+                    b.HasOne("Movie.Models.Cast.Cast", "Cast")
+                        .WithMany()
+                        .HasForeignKey("CastId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Movie.Models.Post.Posts", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cast");
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("Movie.Models.Company.MovieCompany", b =>
                 {
                     b.HasOne("Movie.Models.Company.Company", "Company")
@@ -426,6 +491,25 @@ namespace Movie.Migrations
                     b.Navigation("Genre");
 
                     b.Navigation("Movies");
+                });
+
+            modelBuilder.Entity("Movie.Models.Genre.PostGenre", b =>
+                {
+                    b.HasOne("Movie.Models.Genre.Genre", "Genre")
+                        .WithMany()
+                        .HasForeignKey("GenreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Movie.Models.Post.Posts", "Post")
+                        .WithMany()
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Genre");
+
+                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("Movie.Models.Keyword.MovieKeyword", b =>
