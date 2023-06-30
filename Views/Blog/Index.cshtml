@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "Blog Page";
+}
+@model List<Movie.Models.Post.Posts>
+<!-- Blog Section Begin -->
+<section class="blog spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="row">
+                    @for(var i=0; i < Model.Count ;i+=3){
+                    <div class="col-lg-12">
+                            <div class="blog__item set-bg" data-setbg="images/posts/@Model[i].Thumbnail">
+                            <div class="blog__item__text">
+                                <p><span class="icon_calendar"></span> @Model[i].Title</p>
+                                <h4><a href="#">Yuri Kuma Arashi Viverra Tortor Pharetra</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="blog__item small__item set-bg" data-setbg="images/posts/@Model[i+1].Thumbnail">
+                            <div class="blog__item__text">
+                                    <p><span class="icon_calendar"></span> @Model[i+1].Title</p>
+                                <h4><a href="#">Bok no Hero Academia Seassosssn 4 – 18</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="blog__item small__item set-bg" data-setbg="images/posts/@Model[i+2].Thumbnail">
+                            <div class="blog__item__text">
+                                    <p><span class="icon_calendar"></span> @Model[i+2].Title</p>
+                                <h4><a href="#">Fate/Stay Night: Untimated Blade World</a></h4>
+                            </div>
+                        </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="row">
+                     @for(var i=0; i < Model.Count ;i+=3){
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="blog__item small__item set-bg" data-setbg="images/posts/@Model[i].Thumbnail">
+                            <div class="blog__item__text">
+                                <p><span class="icon_calendar"></span>@Model[i].Created</p>
+                                <h4><a href="#">@Model[i].Title</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="blog__item small__item set-bg" data-setbg="images/posts/@Model[i+1].Thumbnail">
+                            <div class="blog__item__text">
+                                <p><span class="icon_calendar"></span> @Model[i+1].Created</p>
+                                    <h4><a href="#">@Model[i+1].Title</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                            <div class="blog__item set-bg" data-setbg="images/posts/@Model[i+2].Thumbnail">
+                            <div class="blog__item__text">
+                                <p><span class="icon_calendar"></span> @Model[i+2].Created</p>
+                                    <h4><a href="#">@Model[i+2].Title</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog Section End -->

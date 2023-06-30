@@ -26,17 +26,14 @@
                             <div class="mb-3">
                                 <label asp-for="CastId">Cast</label>
                                 <select class="form-select" asp-for="CastId" asp-items="@Model.PostCaster">
+                                    <option>Choose cast...</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label asp-for="GenreId">Genre</label>
                                 <select class="form-select" asp-for="GenreId" asp-items="@Model.PostGenre">
+                                    <option>Choose genre...</option>
                                 </select>
-                            </div>
-                            <div class="mb-3">
-                                <label asp-for="Created">Release Date</label>
-                                <input type="datetime-local" asp-for="Created" class="form-control" />
-                                <span asp-validation-for="Created" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
                                 <label asp-for="Status">Status</label>

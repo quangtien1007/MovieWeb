@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Movie.Data;
 using Movie.Models.Cast;
@@ -9,6 +10,7 @@ using Movie.Models.Movie;
 
 namespace Movie.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class MovieController : Controller
     {
         private readonly DBContextApplication _db;
@@ -18,6 +20,7 @@ namespace Movie.Controllers
             _db = db;
             _webHostEnvironment = webHostEnvironment;
         }
+
         public IActionResult Index()
         {
             var movie = from m in _db.Movies select m;
@@ -73,20 +76,10 @@ namespace Movie.Controllers
                     Overview = request.Overview,
                     Movie_Status = request.Movie_Status,
                 };
+                await _db.SaveChangesAsync();
 
                 //Get next id of Movies
-                var listId = from i in _db.Movies select i.Id;
-                var nextMovieId = listId.ToList().Max();
-                
-                if(nextMovieId == 0)
-                {
-                    nextMovieId = 1;
-                }
-                else
-                {
-                    nextMovieId++;
-                }
-
+                var nextMovieId = movie.Id;
                 var movieCast = new MovieCast
                 {
                     MovieId = nextMovieId,
@@ -97,8 +90,8 @@ namespace Movie.Controllers
                 {
                     MovieId = nextMovieId,
                     GenreId = request.GenreId,
-                }; 
-                
+                };
+
                 var movieCompany = new MovieCompany
                 {
                     MovieId = nextMovieId,
@@ -119,12 +112,12 @@ namespace Movie.Controllers
         public string UploadFile(MovieViewModel request)
         {
             string file = null;
-            if(request.Image != null)
+            if (request.Image != null)
             {
                 string uploadDir = Path.Combine(_webHostEnvironment.WebRootPath, "images/movies/");
                 file = Guid.NewGuid().ToString() + "-" + request.Image.FileName;
                 var filePath = Path.Combine(uploadDir, file);
-                using(var fileStream = new FileStream(filePath, FileMode.Create))
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     request.Image.CopyTo(fileStream);
                 }
@@ -166,7 +159,7 @@ namespace Movie.Controllers
                 };
 
                 //keep old image if it not changes
-                if(request.Image == null)
+                if (request.Image == null)
                 {
                     var mv = from m in _db.Movies.Where(p => p.Id == movie.Id) select m.Image;
                     movie.Image = mv.ToArray().First();
@@ -183,20 +176,18 @@ namespace Movie.Controllers
 
                 return RedirectToAction("Index");
             }
-
             return View();
         }
+           
+            public async Task<IActionResult> Delete(int? id)
+            {
+                var movie = await _db.Movies.FindAsync(id);
+                _db.Movies.Remove(movie);
+                await _db.SaveChangesAsync();
 
-        [ActionName("Delete")]
-        public async Task<IActionResult> Delete(int? id)
-        {
-            var movie = await _db.Movies.FindAsync(id);
-            _db.Movies.Remove(movie);
-            await _db.SaveChangesAsync();
+                TempData["success"] = $"Deleted {movie.Title}";
 
-            TempData["success"] = $"Deleted {movie.Title}";
-
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
         }
     }
-}

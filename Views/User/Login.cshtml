@@ -3,25 +3,27 @@
 }
 @model Movie.Models.User.UserLoginRequest
 <div class="row">
-    <div class="col-md-6 m-4">
-        <h1>LOGIN FORM</h1>
-        <h1>@TempData["success"]</h1>
-        <form asp-controller="User" asp-action="Login" method="post">
-            <div>
-                <label asp-for="Email">Email</label>
-                <input class="form-control" type="email" asp-for="Email" />
-                <span class="text-danger" asp-validation-for="Email"></span>
-            </div>
-            <div>
-                <label asp-for="Password">Password</label>
-                <input class="form-control" type="password" asp-for="Password" />
-                <span class="text-danger" asp-validation-for="Password"></span>
-            </div>
-            <div>
-                <input type="submit" class="btn btn-primary mt-2" value="Login" />
-            </div>
-        </form>
+    <div class="page-content">
+        <div class="main-banner bg-success" style="--bs-bg-opacity: .5;">
+            <h1>LOGINs</h1>
+            <form id="loginForm" class="justify-content-center" asp-controller="User" asp-action="Login" method="post">
+                <div>
+                    <label class="text-white" asp-for="Email">Email</label>
+                    <input class="form-control" type="email" asp-for="Email" />
+                    <span class="text-danger" asp-validation-for="Email"></span>
+                </div>
+                <div>
+                    <label class="text-white" asp-for="Password">Password</label>
+                    <input class="form-control" type="password" asp-for="Password" />
+                    <span class="text-danger" asp-validation-for="Password"></span>
+                </div>
+                <div class="mt-1">
+                    <div class="main-button">
+                        <a href="javascript:{}" onclick="document.getElementById('loginForm').submit();">Login</a>
+                    </div>  
+                    <p class="text-white">You don't have account?<strong>  <a href="">Signup now</a></strong> </p>
+                </div>
+            </form>
     </div>
-    <h1>@if (User.Identity.IsAuthenticated) { <h1> User.Claims.First().Value; </h1>}</h1>
-    <div class="col-md-3"></div>
+    </div>
 </div>

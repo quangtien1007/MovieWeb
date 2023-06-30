@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Movie.Data;
 using Movie.Models.Genre;
+using System.Data;
 
 namespace Movie.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class GenreController : Controller
     {
         private readonly DBContextApplication _db;

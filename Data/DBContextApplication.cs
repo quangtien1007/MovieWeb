@@ -7,6 +7,7 @@ using Movie.Models.Keyword;
 using Movie.Models.Movie;
 using Movie.Models.Post;
 using Movie.Models.User;
+using Movie.Models;
 
 namespace Movie.Data
 {
@@ -31,6 +32,7 @@ namespace Movie.Data
         public DbSet<PostCast> PostCasts { get; set; }
         public DbSet<PostGenre> PostGenres { get; set; }
         public DbSet<ProductionCountry> ProductionCountrys { get; set; }
+        public DbSet<Movie.Models.MovieDBViewModel>? MovieDBViewModel { get; set; }
 
         #endregion
     }

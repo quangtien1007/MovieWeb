@@ -1,6 +1,60 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿@model Movie.Models.MovieDBViewModel.MovieData
 
-<p>Use this page to detail your site's privacy policy.</p>
+@{
+    ViewData["Title"] = "Privacy";
+}
+
+<h1>Privacy</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Title
+            </th>
+            <th>
+                Overview
+            </th>
+            <th>
+                Popularity
+            </th>
+            <th>
+                Popularity
+            </th>
+            <th>
+                
+                Vote_Average
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.movie) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.overview)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.popularity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.release_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.vote_average)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

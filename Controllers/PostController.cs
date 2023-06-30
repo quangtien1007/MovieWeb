@@ -66,19 +66,11 @@ namespace Movie.Controllers
                     Content = request.Content,
                     Status = "Active",
                 };
+                
+                _db.Posts.Add(post);
+                await _db.SaveChangesAsync();
 
-                //Get next id of Posts
-                var listId = from i in _db.Posts select i.Id;
-                var nextPostId = listId.ToList().Max();
-
-                if (nextPostId == 0)
-                {
-                    nextPostId = 1;
-                }
-                else
-                {
-                    nextPostId++;
-                }
+                var nextPostId = post.Id;
                 var postCast = new PostCast
                 {
                     PostId = nextPostId,
@@ -91,11 +83,61 @@ namespace Movie.Controllers
                     GenreId = request.GenreId,
                 };
 
-
                 _db.PostCasts.Add(postCast);
                 _db.PostGenres.Add(postGenre);
-                _db.Posts.Add(post);
                 await _db.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
+        [HttpGet("/Post/Edit/{id}")]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            var post = await _db.Posts.FindAsync(id);
+            var newPost = new PostViewModel
+            {
+                Id = post.Id,
+                Title = post.Title,
+                Status = post.Status,
+                Content = post.Content,
+                PostCaster = GetDataSelectlist().PostCaster,
+                PostGenre = GetDataSelectlist().PostGenre,
+            };
+            return View(newPost);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(PostViewModel request)
+        {
+            if (ModelState.IsValid)
+            {
+                Posts post = new Posts
+                {
+                    Id = request.Id,
+                    Title = request!.Title!,
+                    Content = request.Content,
+                    Status = request.Status,
+                    Updated = DateTime.Now,
+                };
+                var value = post;
+                //keep old image if it not changes
+                if (request.Thumbnail == null)
+                {
+                    var mv = from m in _db.Posts.Where(p => p.Id == request.Id) select m.Thumbnail;
+                    post.Thumbnail = mv.ToArray().First();
+                }
+                else
+                {
+                    post.Thumbnail = UploadFile(request);
+                }
+
+                _db.Posts.Update(post);
+                await _db.SaveChangesAsync();
+
+                TempData["success"] = $"Updated {request.Title}";
 
                 return RedirectToAction("Index");
             }
@@ -105,6 +147,20 @@ namespace Movie.Controllers
 
         public string UploadFile(PostViewModel request)
         {
+            //delete image when exists
+            if(request.Id != null)
+            {
+                var Thumbnail = from m in _db.Posts.Where(p => p.Id == request.Id) select m.Thumbnail;
+                var thumbnailPath = Thumbnail.First();
+
+                string oldFile = Path.Combine(_webHostEnvironment.WebRootPath, "images/posts/", thumbnailPath);
+                FileInfo files = new FileInfo(oldFile);
+                if (files.Exists)
+                {
+                    System.IO.File.Delete(oldFile);
+                }
+            }
+
             string file = null;
             if (request.Thumbnail != null)
             {
@@ -116,7 +172,6 @@ namespace Movie.Controllers
                     request.Thumbnail.CopyTo(fileStream);
                 }
             }
-
             return file;
         }
     }

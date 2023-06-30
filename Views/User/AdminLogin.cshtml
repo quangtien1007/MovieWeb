@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "Login Page";
+}
+@model Movie.Models.User.UserLoginRequest
+<div class="row">
+    <div class="col-md-6 m-4">
+        <h1>LOGIN FORM</h1>
+        <h1>@TempData["success"]</h1>
+        <form asp-controller="User" asp-action="Login" method="post">
+            <div>
+                <label asp-for="Email">Email</label>
+                <input class="form-control" type="email" asp-for="Email" />
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <div>
+                <label asp-for="Password">Password</label>
+                <input class="form-control" type="password" asp-for="Password" />
+                <span class="text-danger" asp-validation-for="Password"></span>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary mt-2" value="Login" />
+            </div>
+        </form>
+    </div>
+    <h1>@if (User.Identity.IsAuthenticated)
+        {
+            <h1> User.Claims.First().Value; </h1>
+        }</h1>
+    <div class="col-md-3"></div>
+</div>

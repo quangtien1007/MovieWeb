@@ -58,12 +58,18 @@ namespace Movie.Controllers
                 return RedirectToAction("Index");
             }
         }
-        [HttpGet("/Login")]
+        [HttpGet("Login")]
         public IActionResult Login(string returnUrl = "/Login")
         {
             UserLoginRequest objLoginModel = new UserLoginRequest();
             objLoginModel.ReturnUrl = returnUrl;
             return View(objLoginModel);
+        }
+
+        [HttpGet("UserLogin")]
+        public IActionResult Users()
+        {
+            return View("Login");  
         }
 
         [HttpPost("Login")]
@@ -91,6 +97,7 @@ namespace Movie.Controllers
                     {
                         IsPersistent = request.RememberLogin
                     });
+
                     TempData["success"] = "Login successfully";
                     return RedirectToAction("Index", "Home");
                 }

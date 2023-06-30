@@ -48,7 +48,7 @@
                                 <th>Image</th>
                                 <th>ReleaseDate</th>
                                 <th>Viewed</th>
-                                <th>Movie_Status</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -61,7 +61,15 @@
                                     <td><img width="100" alt="" src="~/images/movies/@obj.Image" /></td>
                                     <td>@obj.ReleaseDate</td>
                                     <td>@obj.Viewed</td>
-                                    <td>@obj.Movie_Status</td>
+                                    <td>@if (@obj.Movie_Status == "Stop")
+                                    {
+                                        <span class="badge bg-warning rounded-3 fw-semibold">@obj.Movie_Status</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success rounded-3 fw-semibold">@obj.Movie_Status</span>
+                                        }
+                                    </td>
                                     <td>
                                         <div class="d-flex">
                                             <a asp-controller="Movie" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-info mx-2">Edit</a>

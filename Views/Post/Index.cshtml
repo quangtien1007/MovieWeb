@@ -41,8 +41,8 @@
                             <tr>
                                 <th>Title</th>
                                 <th>Thumbnail</th>
-                                <th>Content</th>
                                 <th>Created</th>
+                                <th>Updated</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -52,10 +52,18 @@
                             {
                                 <tr>
                                     <td>@obj.Title</td>
-                                    <td>@obj.Thumbnail</td>
-                                    <td>@obj.Content</td>
+                                    <td><img src="~/images/posts/@obj.Thumbnail" width="100" /></td>
                                     <td>@obj.Created</td>
-                                    <td>@obj.Status</td>
+                                    <td>@obj.Updated</td>
+                                    <td>
+                                    @if (@obj.Status == "Deactivate"){
+                                        <span class="badge bg-warning rounded-3 fw-semibold">@obj.Status</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success rounded-3 fw-semibold">@obj.Status</span>
+                                    }
+                                </td>
                                 <td>
                                         <div class="d-flex">
                                             <a asp-controller="Post" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-info mx-2">Edit</a>

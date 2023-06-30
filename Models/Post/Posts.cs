@@ -11,7 +11,7 @@ namespace Movie.Models.Post
         [Required]
         [MaxLength(200)]
         public string Title { get; set; } = string.Empty;
-        public string Thumbnail { get; set; } = string.Empty;
+        public string Thumbnail { get; set; } 
         public string Content { get; set; } = string.Empty;
         public int Viewed { get; set; } = 0;
         public DateTime Created { get; set; }
