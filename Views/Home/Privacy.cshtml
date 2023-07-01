@@ -1,4 +1,4 @@
-﻿@model Movie.Models.MovieDBViewModel.MovieData
+﻿@model List<Movie.Models.MovieDBViewModel.MovieData>
 
 @{
     ViewData["Title"] = "Privacy";
@@ -25,36 +25,30 @@
                 Popularity
             </th>
             <th>
-                
                 Vote_Average
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.movie) {
+        @foreach(var item in Model){
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.id)
+                @item.phone
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.overview)
+                @item.email
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.popularity)
+                @item.name
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.release_date)
+                @item.phone
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.vote_average)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                @item.phone
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>

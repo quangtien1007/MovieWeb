@@ -8,31 +8,52 @@ namespace Movie.Models
     {
         public class MovieData
         {
-            [JsonProperty("page")]
-            public int page { get; set; }
-            [JsonProperty("results")]
-            public List<Movie> movie { get; set; }
-            [JsonProperty("total_page")]
-            public int total_page { get; set; }
-            [JsonProperty("total_results")]
-            public int total_results { get; set; }
-        }
-
-        public class Movie
-        {
             [JsonProperty("id")]
             public int id { get; set; }
-            [JsonProperty("original_title")]
-            public string original_title { get; set; }
-            [JsonProperty("overview")]
-            public string overview { get; set; }
-            [JsonProperty("popularity")]
-            public int popularity { get; set; }
-            [JsonProperty("release_date")]
-            public DateTime release_date { get; set; }
-            [JsonProperty("vote_average")]
-            public double vote_average { get; set; }
+            [JsonProperty("name")]
+            public string name { get; set; }
+            [JsonProperty("email")]
+            public string email { get; set; }
+            /*[JsonProperty("address")]
+            public List<Address> address { get; set; }*/
+            [JsonProperty("phone")]
+            public string phone { get; set; }
+            [JsonProperty("website")]
+            public string website { get; set; }
+            /*[JsonProperty("company")]
+            public List<Company> company { get; set; }*/
+        }
+
+        public class Address
+        {
+            [JsonProperty("street")]
+            public string street { get; set; }
+            [JsonProperty("suite")]
+            public string suite { get; set; }
+            [JsonProperty("city")]
+            public string city { get; set; }
+            [JsonProperty("zipcode")]
+            public string zipcode { get; set; }
+            [JsonProperty("geo")]
+            public List<Geo> geo { get; set; }
+        }
+
+        public class Company
+        {
+            [JsonProperty("name")]
+            public string name { get; set; }
+            [JsonProperty("catchPhrase")]
+            public string catchPhrase { get; set; }
+            [JsonProperty("bs")]
+            public string bs { get; set; }
         }
         
+        public class Geo
+        {
+            [JsonProperty("lat")]
+            public double lat { get; set; }
+            [JsonProperty("lng")]
+            public double lng { get; set; }
+        }
     }
 }

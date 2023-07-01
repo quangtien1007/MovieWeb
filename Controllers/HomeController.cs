@@ -34,15 +34,16 @@ namespace Movie.Controllers
             List<MovieDBViewModel.MovieData> reservationList = new List<MovieDBViewModel.MovieData>();
             using (var httpClient = new HttpClient())
             {
+                httpClient.BaseAddress = new Uri("https://jsonplaceholder.typicode.com/");
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                HttpResponseMessage response = await httpClient.GetAsync("https://api.themoviedb.org/3/movie/popular?api_key=25050fc8f397ed48c052e34d6a29bdde");
+                HttpResponseMessage response = await httpClient.GetAsync("users");
                 if(response.IsSuccessStatusCode)
                 {
-                    string data = await response.Content.ReadAsStringAsync();
+                    string data = response.Content.ReadAsStringAsync().Result;
                     reservationList = JsonConvert.DeserializeObject<List<MovieDBViewModel.MovieData>>(data);
                 }
             }
-            return View(reservationList);
+            return View(reservationList.ToList());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
