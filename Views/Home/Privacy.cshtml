@@ -13,19 +13,19 @@
     <thead>
         <tr>
             <th>
-                Title
+                Id
             </th>
             <th>
-                Overview
+                Name
             </th>
             <th>
-                Popularity
+                Email
             </th>
             <th>
-                Popularity
+                Phone
             </th>
             <th>
-                Vote_Average
+                Website
             </th>
             <th></th>
         </tr>
@@ -34,19 +34,19 @@
         @foreach(var item in Model){
         <tr>
             <td>
-                @item.phone
-            </td>
-            <td>
-                @item.email
+                @item.id
             </td>
             <td>
                 @item.name
             </td>
             <td>
-                @item.phone
+                @item.email
             </td>
             <td>
                 @item.phone
+            </td>
+            <td>
+                @item.website
             </td>
         </tr>
         }

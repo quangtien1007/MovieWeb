@@ -17,7 +17,7 @@ namespace Movie.Controllers
         }
 
         public IActionResult Index()
-        {   
+        {
             var movie = from m in _db.Movies select m;
             if (User.IsInRole("Admin"))
             {

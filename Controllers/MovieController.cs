@@ -10,7 +10,7 @@ using Movie.Models.Movie;
 
 namespace Movie.Controllers
 {
-    [Authorize(Roles = "Admin")]
+  
     public class MovieController : Controller
     {
         private readonly DBContextApplication _db;

@@ -329,6 +329,11 @@ namespace Movie.Migrations
                     b.ToTable("Movie");
                 });
 
+            modelBuilder.Entity("Movie.Models.MovieDBViewModel", b =>
+                {
+                    b.ToTable("MovieDBViewModel");
+                });
+
             modelBuilder.Entity("Movie.Models.Post.Posts", b =>
                 {
                     b.Property<int>("Id")
